@@ -18,7 +18,7 @@ public class AvroSerialize implements Serializer<SpecificRecordBase> {
     public AvroSerialize() {
         encoderFactory = EncoderFactory.get();
     }
-
+    @Override
     public byte[] serialize(String topic, SpecificRecordBase data) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()){
             if (data!=null){
