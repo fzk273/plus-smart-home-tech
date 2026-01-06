@@ -4,8 +4,13 @@ import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.kafka.telemetry.event.HubEventAvro;
+import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
 import ru.yandex.practicum.mapper.HubEventMapper;
+import ru.yandex.practicum.mapper.SensorEventMapper;
 import ru.yandex.practicum.model.hub.HubEvent;
 import ru.yandex.practicum.model.sensor.SensorEvent;
 
@@ -27,9 +32,27 @@ public class EventService {
     }
 
     public void createSensorEvent(SensorEvent event) {
+        SensorEventAvro sensorEventAvro = SensorEventMapper.toSensorEventAvro(event);
+        ProducerRecord<String, SpecificRecordBase> record = new ProducerRecord<>(
+                SENSOR_TOPIC_NAME,
+                null,
+                event.getTimestamp().toEpochMilli(),
+                event.getHubId(),
+                sensorEventAvro
+        );
+        producer.send(record);
     }
 
-    public void createHubEvent(HubEvent hubEvent) {
+    public void createHubEvent(HubEvent event) {
+        HubEventAvro hubEventAvro = HubEventMapper.toHubEventAvro(event);
+        ProducerRecord<String, SpecificRecordBase> record = new ProducerRecord<>(
+                HUB_TOPIC_NAME,
+                null,
+                event.getTimestamp().toEpochMilli(),
+                event.getHubId(),
+                hubEventAvro
+        );
+        producer.send(record);
     }
 
 
