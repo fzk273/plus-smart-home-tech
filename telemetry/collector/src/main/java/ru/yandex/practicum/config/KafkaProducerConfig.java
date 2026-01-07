@@ -18,8 +18,8 @@ public class KafkaProducerConfig {
     public Producer<String, SpecificRecordBase> getKafkaProducer(KafkaProperties properties) {
         Properties config = new Properties();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers());
-        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "ru.yandex.practicum.serializer.AvroSerialize");
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, properties.getSerializers().getKey());
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, properties.getSerializers().getValue());
         return new KafkaProducer<>(config);
     }
 }

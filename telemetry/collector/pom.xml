@@ -11,6 +11,11 @@
 
     <artifactId>collector</artifactId>
 
+    <properties>
+        <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
+        <kafka-clients.version>3.6.1</kafka-clients.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>ru.yandex.practicum</groupId>
@@ -32,13 +37,13 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.1.1</version>
+            <version>${jakarta.validation-api.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-            <version>3.6.1</version>
+            <version>${kafka-clients.version}</version>
         </dependency>
 
     </dependencies>

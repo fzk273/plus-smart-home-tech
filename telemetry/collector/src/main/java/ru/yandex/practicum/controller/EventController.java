@@ -1,6 +1,8 @@
 package ru.yandex.practicum.controller;
 
 import jakarta.validation.Valid;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,23 +14,19 @@ import ru.yandex.practicum.service.EventService;
 
 @RestController
 @RequestMapping("/events")
+@RequiredArgsConstructor
 public class EventController {
 
     private final EventService eventService;
 
-    public EventController(EventService eventService) {
-        this.eventService = eventService;
-    }
 
     @PostMapping("/sensors")
-    public ResponseEntity<Void> createSensorEvent(@Valid @RequestBody SensorEvent event) {
+    public void createSensorEvent(@Valid @RequestBody SensorEvent event) {
         eventService.createSensorEvent(event);
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/hubs")
-    public ResponseEntity<Void> createHubEvent(@Valid @RequestBody HubEvent hubEvent) {
+    public void createHubEvent(@Valid @RequestBody HubEvent hubEvent) {
         eventService.createHubEvent(hubEvent);
-        return ResponseEntity.ok().build();
     }
 }

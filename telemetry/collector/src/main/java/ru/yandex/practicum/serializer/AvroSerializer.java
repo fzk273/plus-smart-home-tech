@@ -11,11 +11,11 @@ import org.apache.kafka.common.serialization.Serializer;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class AvroSerialize implements Serializer<SpecificRecordBase> {
+public class AvroSerializer implements Serializer<SpecificRecordBase> {
     private final EncoderFactory encoderFactory;
     private BinaryEncoder binaryEncoder;
 
-    public AvroSerialize() {
+    public AvroSerializer() {
         encoderFactory = EncoderFactory.get();
     }
     @Override
